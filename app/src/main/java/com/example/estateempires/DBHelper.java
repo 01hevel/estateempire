@@ -6,8 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import androidx.annotation.Nullable;
-
 public class DBHelper extends SQLiteOpenHelper {
     public DBHelper(Context context) {
         super(context,"Login.db",null,1);
@@ -38,7 +36,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Boolean checkusername(String username) {
+    public Boolean check_username(String username) {
         SQLiteDatabase myDB = this.getWritableDatabase();
         Cursor cursor = myDB.rawQuery("select * from users where username = ?", new String[] {username});
 
@@ -50,7 +48,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Boolean checkusernamePassword(String username, String password) {
+    public Boolean checkusername_Password(String username, String password) {
         SQLiteDatabase myDB = this.getWritableDatabase();
         Cursor cursor = myDB.rawQuery("select * from user where username = ? and password = ?", new String[] {username,password});
 

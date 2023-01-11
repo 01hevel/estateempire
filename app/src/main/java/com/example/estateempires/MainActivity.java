@@ -1,6 +1,8 @@
 package com.example.estateempires;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
     EditText username, password, repassword;
     Button btnSignUp;
+    Button btnSignIn;
     DBHelper myDB;
 
     @Override
@@ -23,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         repassword = (EditText)findViewById(R.id.repassword);
 
         btnSignUp = (Button)findViewById(R.id.btnSignUp);
+        btnSignIn = (Button)findViewById(R.id.btnSignIn);
 
         myDB = new DBHelper(this);
 
@@ -38,11 +42,13 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else {
                     if(pass.equals(repass)) {
-                       Boolean usercheckResult = myDB.checkusername(user);
+                       Boolean usercheckResult = myDB.check_username(user);
                        if(usercheckResult == false) {
                             Boolean regResult = myDB.insertData(user,pass);
                             if(regResult == true) {
                                 Toast.makeText(MainActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                startActivity(intent);
                             }
                             else {
                                 Toast.makeText(MainActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
@@ -56,6 +62,14 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Password not Matching", Toast.LENGTH_SHORT).show();
                     }
                 }
+            }
+        });
+
+        btnSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                startActivity(intent);
             }
         });
     }
